@@ -1,1 +1,1 @@
-console.warn("start team networking");
+console.warn("start team", 2 + 3);
