@@ -13,7 +13,7 @@ function getTeamsHTML(team) {
 }
 
 function loadTeams() {
-  fetch("teams.json")
+  fetch("http://localhost:3000/teams-json")
     .then((r) => r.json())
     .then(function (teams) {
       const htmlTeams = teams.map(getTeamsHTML);
