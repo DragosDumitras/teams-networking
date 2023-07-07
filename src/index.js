@@ -12,15 +12,15 @@ function getTeamsHTML(team) {
   </tr>`;
 }
 
-function renderTeams(teams) {
-  const htmlTeams = teams.map(getTeamsHTML);
-  document.querySelector("#teamsTable tbody").innerHTML = htmlTeams.join("");
-}
-
 function loadTeams() {
   fetch("teams.json")
     .then((r) => r.json())
-    .then(renderTeams);
+    .then(function (teams) {
+      const htmlTeams = teams.map(getTeamsHTML);
+      console.warn(htmlTeams);
+      document.querySelector("#teamsTable tbody").innerHTML =
+        htmlTeams.join("");
+    });
 }
 
 loadTeams();
