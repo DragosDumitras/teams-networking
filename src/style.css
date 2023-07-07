@@ -87,3 +87,19 @@ td {
 #teamsTable tfoot input:not([type="image" i]) {
   box-sizing: border-box;
 }
+
+.edit-btn,
+.delete-btn {
+  color: #02638d;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  text-decoration: underline;
+  color: darkred;
+}
+
+.edit-btn:hover {
+  text-decoration: underline;
+  color: #039903;
+}
