@@ -1,5 +1,7 @@
 import "./style.css";
 
+let allTeams = [];
+
 function $(selector) {
   return document.querySelector(selector);
 }
@@ -45,7 +47,10 @@ function renderTeams(teams) {
 function loadTeams() {
   fetch("http://localhost:3000/teams-json")
     .then((r) => r.json())
-    .then(renderTeams);
+    .then((teams) => {
+      allTeams = teams;
+      renderTeams(teams);
+    });
 }
 
 function onSubmit(e) {
@@ -68,6 +73,15 @@ function onSubmit(e) {
   });
 }
 
+function startEdit(id) {
+  console.warn("edit...%o", id, allTeams);
+  const team = allTeams.find((team) => team.id === id);
+
+  console.warn(team.promotion);
+  $("#promotion").value = team.promotion;
+  $("#members").value = team.members;
+}
+
 function initEvents() {
   $("#teamsForm").addEventListener("submit", onSubmit);
 
@@ -81,6 +95,9 @@ function initEvents() {
           window.location.reload();
         }
       });
+    } else if (e.target.matches("a.edit-btn")) {
+      const id = e.target.dataset.id;
+      startEdit(id);
     }
   });
 }
