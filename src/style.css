@@ -80,12 +80,9 @@ td {
   background-color: #f2f2f2;
 }
 
-#teamsTable tfoot input {
-  width: 100%;
-}
-
-#teamsTable tfoot input:not([type="image" i]) {
+#teamsTable input[type="text"] {
   box-sizing: border-box;
+  width: 100%;
 }
 
 .edit-btn,

@@ -32,6 +32,13 @@
 
       <form id="teamsForm" method="get">
         <table id="teamsTable">
+          <colgroup>
+            <col span="1" style="width: 15%" />
+            <col span="1" />
+            <col span="1" />
+            <col span="1" />
+            <col span="1" style="width: 80px" />
+          </colgroup>
           <thead>
             <tr>
               <th>Promotion</th>
@@ -48,7 +55,6 @@
                 <input
                   type="text"
                   name="promotion"
-                  id="promotion"
                   placeholder="Enter Promotion"
                   required
                 />
@@ -57,7 +63,6 @@
                 <input
                   type="text"
                   name="members"
-                  id="members"
                   placeholder="Enter Members"
                   required
                 />
@@ -66,7 +71,6 @@
                 <input
                   type="text"
                   name="name"
-                  id="name"
                   placeholder="Enter Name"
                   required
                 />
@@ -75,14 +79,13 @@
                 <input
                   type="text"
                   name="url"
-                  id="url"
                   placeholder="Enter URL"
                   required
                 />
               </td>
               <td>
-                <button type="submit">💾</button>
-                <button type="reset">✖</button>
+                <button type="submit" title="Add">➕</button>
+                <button type="reset" title="">✖</button>
               </td>
             </tr>
           </tfoot>
