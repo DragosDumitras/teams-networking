@@ -41,15 +41,14 @@ h1 {
 
 h2 {
   margin: 2px;
-  font-size: 1.2em;
   color: white;
 }
 
 footer {
-  background-color: rgb(20, 139, 147);
-  color: white;
+  background-color: rgb(7, 124, 139);
+  color: #fff;
   text-align: center;
-  padding: 5px;
+  padding: 7px;
 }
 
 .tbar {
@@ -71,7 +70,7 @@ footer {
 #teamsTable td {
   border: 1px solid #057988;
   padding: 5px;
-  line-height: 29px;
+  line-height: 28px;
   /* word-break: break-all; */
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -116,7 +115,7 @@ footer {
 
 .delete-btn:hover {
   text-decoration: underline;
-  color: darkred;
+  color: #b90303;
 }
 
 .edit-btn:hover {

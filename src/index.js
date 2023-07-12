@@ -89,8 +89,8 @@ function getTeamsHTMLInputs(team) {
       />
     </td>
     <td>
-      <button type="submit" class=".action-btn" title="Save" >💾</button>
-      <button type="reset" class=".action-btn" title="Cancel" >✖</button>
+      <button type="submit" class="action-btn" title="Save" >💾</button>
+      <button type="reset" class="action-btn" title="Cancel" >✖</button>
     </td>
   </tr>`;
 }
@@ -100,6 +100,14 @@ function renderTeams(teams, editId) {
     return team.id === editId ? getTeamsHTMLInputs(team) : getTeamsHTML(team);
   });
   $("#teamsTable tbody").innerHTML = htmlTeams.join("");
+  addTitlesToOverflowCells();
+}
+
+function addTitlesToOverflowCells() {
+  const cells = document.querySelectorAll("#teamsTable td");
+  cells.forEach((cell) => {
+    cell.title = cell.offsetWidth < cell.scrollWidth ? cell.textContent : "";
+  });
 }
 
 function loadTeams() {
