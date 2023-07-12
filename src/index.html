@@ -33,11 +33,11 @@
       <form id="teamsForm" method="get">
         <table id="teamsTable">
           <colgroup>
-            <col span="1" style="width: 15%" />
-            <col span="1" />
-            <col span="1" />
-            <col span="1" />
-            <col span="1" style="width: 80px" />
+            <col style="width: 20%" />
+            <col style="width: 40%" />
+            <col style="width: 25%" />
+            <col style="width: 15%" />
+            <col class="table-actions" />
           </colgroup>
           <thead>
             <tr>
@@ -84,8 +84,12 @@
                 />
               </td>
               <td>
-                <button type="submit" title="Add">➕</button>
-                <button type="reset" title="">✖</button>
+                <button type="submit" class=".action-btn" title="Add">
+                  ➕
+                </button>
+                <button type="reset" class=".action-btn" title="Reset">
+                  ✖
+                </button>
               </td>
             </tr>
           </tfoot>

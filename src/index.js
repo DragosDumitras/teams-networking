@@ -44,8 +44,8 @@ function getTeamsHTML(team) {
     <td>${team.name}</td>
     <td>${team.url}</td>
     <td>
-      <a data-id="${team.id}" class="edit-btn">&#9998</a>
-      <a data-id="${team.id}" class="delete-btn">✖</a>
+      <button data-id="${team.id}" class="edit-btn action-btn">&#9998</button>
+      <button data-id="${team.id}" class="delete-btn action-btn">✖</button>
     </td>
   </tr>`;
 }
@@ -89,8 +89,8 @@ function getTeamsHTMLInputs(team) {
       />
     </td>
     <td>
-      <button type="submit" title="Save" >💾</button>
-      <button type="reset" title="Cancel" >✖</button>
+      <button type="submit" class=".action-btn" title="Save" >💾</button>
+      <button type="reset" class=".action-btn" title="Cancel" >✖</button>
     </td>
   </tr>`;
 }
@@ -166,7 +166,7 @@ function initEvents() {
   $("#teamsForm").addEventListener("submit", onSubmit);
 
   $("#teamsTable tbody").addEventListener("click", (e) => {
-    if (e.target.matches("a.delete-btn")) {
+    if (e.target.matches("button.delete-btn")) {
       const id = e.target.dataset.id;
       // console.warn("delete...%o", id);
       deleteTeamRequest(id).then((status) => {
@@ -175,7 +175,7 @@ function initEvents() {
           window.location.reload();
         }
       });
-    } else if (e.target.matches("a.edit-btn")) {
+    } else if (e.target.matches("button.edit-btn")) {
       const id = e.target.dataset.id;
       startEdit(id);
     }
