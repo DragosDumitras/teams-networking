@@ -204,7 +204,14 @@ function filterElements(teams, search) {
   });
 }
 
+function removeSelected() {
+  const selected = document.querySelectorAll("input[name=selected]:checked");
+  const ids = [...selected].map((input) => input.value);
+  console.warn("ids", ids);
+}
+
 function initEvents() {
+  $("#removeSelected").addEventListener("click", removeSelected);
   $("#search").addEventListener("input", (e) => {
     const search = e.target.value;
     const teams = filterElements(allTeams, search);
