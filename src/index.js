@@ -7,6 +7,8 @@ import {
   deleteTeamRequest,
 } from "./middleware";
 
+const form = "#teamsForm";
+
 let allTeams = [];
 let editId;
 
@@ -107,12 +109,12 @@ function addTitlesToOverflowCells() {
 }
 
 async function loadTeams() {
-  mask("#teamsForm");
+  mask(form);
   const teams = await loadTeamsRequest();
   console.warn("teams", teams);
   allTeams = teams;
   renderTeams(teams);
-  unmask("#teamsForm");
+  unmask(form);
 }
 
 function getTeamValues(parent) {
@@ -136,6 +138,8 @@ function onSubmit(e) {
 
   const team = getTeamValues(editId ? "tbody" : "tfoot");
 
+  mask(form);
+
   if (editId) {
     team.id = editId;
     console.warn("update...", team);
@@ -156,6 +160,7 @@ function onSubmit(e) {
         setInputsDisabled(false);
         editId = "";
       }
+      unmask(form);
     });
   } else {
     createTeamRequest(team).then(({ success, id }) => {
@@ -163,8 +168,9 @@ function onSubmit(e) {
         team.id = id;
         allTeams = [...allTeams, team];
         renderTeams(allTeams);
-        $("#teamsForm").reset();
+        $(form).reset();
       }
+      unmask(form);
     });
   }
 }
@@ -205,8 +211,8 @@ function initEvents() {
     renderTeams(teams);
   });
 
-  $("#teamsForm").addEventListener("submit", onSubmit);
-  $("#teamsForm").addEventListener("reset", (e) => {
+  $(form).addEventListener("submit", onSubmit);
+  $(form).addEventListener("reset", (e) => {
     console.info("reset", editId);
     if (editId) {
       // console.warn("cancel");
@@ -221,7 +227,7 @@ function initEvents() {
     if (e.target.matches("button.delete-btn")) {
       const id = e.target.dataset.id;
       // console.warn("delete...%o", id);
-      mask("#teamsForm");
+      mask(form);
       deleteTeamRequest(id, (status) => {
         console.info("delete callback %o", status);
         if (status.success) {
