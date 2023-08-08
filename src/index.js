@@ -212,7 +212,7 @@ function initEvents() {
     if (editId) {
       // console.warn("cancel");
       allTeams = [...allTeams];
-      renderTeams(allTeams);
+      renderTeams(allTeams, -1); // use -1 to force render
       setInputsDisabled(false);
       editId = "";
     }
