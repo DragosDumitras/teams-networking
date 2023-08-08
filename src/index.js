@@ -87,24 +87,20 @@ function getTeamsHTMLInputs({ id, promotion, members, name, url }) {
 let previewTeams = [];
 function renderTeams(teams, editId) {
   if (!editId && teams === previewTeams) {
-    console.warn("same teams aready rendered");
     return;
   }
   if (!editId && teams.length === previewTeams.length) {
     const sameContent = previewTeams.every((team, i) => team === teams[i]);
     if (sameContent) {
-      console.info("sameContent");
       return;
     }
   }
-  console.time("render");
   previewTeams = teams;
   const htmlTeams = teams.map((team) => {
     return team.id === editId ? getTeamsHTMLInputs(team) : getTeamsHTML(team);
   });
   $("#teamsTable tbody").innerHTML = htmlTeams.join("");
   addTitlesToOverflowCells();
-  console.timeEnd("render");
 }
 
 function addTitlesToOverflowCells() {
@@ -117,7 +113,6 @@ function addTitlesToOverflowCells() {
 async function loadTeams() {
   mask(form);
   const teams = await loadTeamsRequest();
-  console.warn("teams", teams);
   allTeams = teams;
   renderTeams(teams);
   unmask(form);
@@ -139,8 +134,6 @@ function getTeamValues(parent) {
 
 async function onSubmit(e) {
   e.preventDefault();
-
-  console.warn("update or create?");
 
   const team = getTeamValues(editId ? "tbody" : "tfoot");
 
@@ -178,7 +171,6 @@ async function onSubmit(e) {
 
 function startEdit(id) {
   editId = id;
-  console.warn("edit...%o", id, allTeams);
   // const team = allTeams.find((team) => team.id === id);
   renderTeams(allTeams, id);
 
@@ -194,7 +186,6 @@ function setInputsDisabled(disabled) {
 function filterElements(teams, search) {
   search = search.toLowerCase();
   return teams.filter(({ promotion, members, name, url }) => {
-    // console.info("search %o in %o", search, team.promotion);
     return (
       promotion.toLowerCase().includes(search) ||
       members.toLowerCase().includes(search) ||
@@ -210,7 +201,6 @@ async function removeSelected() {
   const ids = [...selected].map((input) => input.value);
   const promises = ids.map((id) => deleteTeamRequest(id));
   const responses = await Promise.allSettled(promises);
-  //console.warn("responses", responses);
   unmask("#main");
   loadTeams();
 }
@@ -220,7 +210,6 @@ function initEvents() {
   $("#search").addEventListener("input", (e) => {
     const search = e.target.value;
     const teams = filterElements(allTeams, search);
-    // console.info("search", search, teams);
     renderTeams(teams);
   });
 
@@ -232,9 +221,7 @@ function initEvents() {
 
   $(form).addEventListener("submit", onSubmit);
   $(form).addEventListener("reset", (e) => {
-    console.info("reset", editId);
     if (editId) {
-      // console.warn("cancel");
       allTeams = [...allTeams];
       renderTeams(allTeams, -1); // use -1 to force render
       setInputsDisabled(false);
@@ -245,10 +232,8 @@ function initEvents() {
   $("#teamsTable tbody").addEventListener("click", async (e) => {
     if (e.target.matches("button.delete-btn")) {
       const id = e.target.dataset.id;
-      // console.warn("delete...%o", id);
       mask(form);
       const status = await deleteTeamRequest(id);
-      console.info("delete callback %o", status);
       if (status.success) {
         //window.location.reload(); // v.1
         //loadTeams(); // v.2
