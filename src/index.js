@@ -20,6 +20,9 @@ function getTeamsHTML(team) {
     ? url.substring(19)
     : url;
   return `<tr>
+      <td style="text-align: center">
+      <input type="checkbox" name="selected" value="${id}" />
+    </td>
     <td>${team.promotion}</td>
     <td>${team.members}</td>
     <td>${team.name}</td>
@@ -33,8 +36,11 @@ function getTeamsHTML(team) {
   </tr>`;
 }
 
-function getTeamsHTMLInputs({ promotion, members, name, url }) {
+function getTeamsHTMLInputs({ id, promotion, members, name, url }) {
   return `<tr>
+      <td style="text-align: center">
+      <input type="checkbox" name="selected" value="${id}" />
+    </td>
     <td>
       <input
         value="${promotion}"
