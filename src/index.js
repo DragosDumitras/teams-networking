@@ -66,11 +66,11 @@ function getTeamsHTML(team) {
   </tr>`;
 }
 
-function getTeamsHTMLInputs(team) {
+function getTeamsHTMLInputs({ promotion, members, name, url }) {
   return `<tr>
     <td>
       <input
-        value="${team.promotion}"
+        value="${promotion}"
         type="text"
         name="promotion"
         placeholder="Enter Promotion"
@@ -79,7 +79,7 @@ function getTeamsHTMLInputs(team) {
     </td>
     <td>
       <input
-        value="${team.members}"
+        value="${members}"
         type="text"
         name="members"
         placeholder="Enter Members"
@@ -88,7 +88,7 @@ function getTeamsHTMLInputs(team) {
     </td>
     <td>
       <input
-        value="${team.name}"
+        value="${name}"
         type="text"
         name="name"
         placeholder="Enter Name"
@@ -97,7 +97,7 @@ function getTeamsHTMLInputs(team) {
     </td>
     <td>
       <input
-        value="${team.url}"
+        value="${url}"
         type="text"
         name="url"
         placeholder="Enter URL"
@@ -174,9 +174,8 @@ function onSubmit(e) {
   if (editId) {
     team.id = editId;
     console.warn("update...", team);
-    updateTeamRequest(team).then((status) => {
-      console.warn("updated", status);
-      if (status.success) {
+    updateTeamRequest(team).then(({ success }) => {
+      if (success) {
         allTeams = allTeams.map((t) => {
           if (t.id === team.id) {
             //var a = { x: 1, y: 2 }; var b = { y: 3, z: 4 }; var c = { ...a, ...c };
@@ -194,10 +193,9 @@ function onSubmit(e) {
       }
     });
   } else {
-    createTeamRequest(team).then((status) => {
-      console.warn("created", status);
-      if (status.success) {
-        team.id = status.id;
+    createTeamRequest(team).then(({ success, id }) => {
+      if (success) {
+        team.id = id;
         allTeams = [...allTeams, team];
         renderTeams(allTeams);
         $("#teamsForm").reset();
@@ -223,13 +221,13 @@ function setInputsDisabled(disabled) {
 
 function filterElements(teams, search) {
   search = search.toLowerCase();
-  return teams.filter((team) => {
+  return teams.filter(({ promotion, members, name, url }) => {
     // console.info("search %o in %o", search, team.promotion);
     return (
-      team.promotion.toLowerCase().includes(search) ||
-      team.members.toLowerCase().includes(search) ||
-      team.name.toLowerCase().includes(search) ||
-      team.url.toLowerCase().includes(search)
+      promotion.toLowerCase().includes(search) ||
+      members.toLowerCase().includes(search) ||
+      name.toLowerCase().includes(search) ||
+      url.toLowerCase().includes(search)
     );
   });
 }
